@@ -3,6 +3,7 @@ var position;
 
 var database;
 
+/////////////////////////////////////////////
 function preload(){
    bg = loadImage("cityImage.png");
 
@@ -12,6 +13,7 @@ function preload(){
    "hotairballoon2.png","hotairballoon3.png","hotairballoon3.png","hotairballoon3.png");
   }
 
+/////////////////////////////////////////////
 //Function to set initial environment
 function setup() {
   database = firebase.database();
@@ -28,25 +30,26 @@ function setup() {
   textSize(20); 
 }
 
+/////////////////////////////////////////////
 // function to display UI
 function draw() {
   background(bg);
 
   if(keyDown(LEFT_ARROW)){
     balloon.addAnimation("hotAirBalloon",balloonImage2);
-    changePosition(-1,0);
+    changePosition(-5,0);
   }
   else if(keyDown(RIGHT_ARROW)){
     balloon.addAnimation("hotAirBalloon",balloonImage2);
-    changePosition(1,0);
+    changePosition(5,0);
   }
   else if(keyDown(UP_ARROW)){
     balloon.addAnimation("hotAirBalloon",balloonImage2);
-    changePosition(0,-1);
+    changePosition(0,-5);
   }
   else if(keyDown(DOWN_ARROW)){
     balloon.addAnimation("hotAirBalloon",balloonImage2);
-    changePosition(0,+1);
+    changePosition(0,+5);
   }
 
   drawSprites();
@@ -60,26 +63,22 @@ function draw() {
 
 }
 
+/////////////////////////////////////////////
 function changePosition(x,y){
    database.ref('balloon/position').set({
      'x': position.x + x,
      'y': position.y + y
-
    })
 }
 
+/////////////////////////////////////////////
 function readPosition(data){
    position = data.val();
    balloon.x  = position.x;
    balloon.y = position.y;
-
 }
 
+/////////////////////////////////////////////
 function showError(){
    console.log("Error in writing to the database");
-
-}
-
-function update(){
-  //
 }
